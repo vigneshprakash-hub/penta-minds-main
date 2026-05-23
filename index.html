@@ -620,6 +620,60 @@
       grid-column: 4 / span 2;
     }
 
+    .ecosystem-tree{
+  margin-top:42px;
+  text-align:center;
+}
+
+.ecosystem-root{
+  background:var(--navy);
+  border-radius:var(--radius);
+  color:white;
+  display:inline-block;
+  font-family:var(--heading);
+  font-size:1.6rem;
+  font-weight:800;
+  padding:22px 42px;
+}
+
+.ecosystem-branches{
+  border-top:2px solid var(--line);
+  display:grid;
+  gap:22px;
+  grid-template-columns:repeat(4,1fr);
+  margin-top:48px;
+  padding-top:34px;
+  position:relative;
+}
+
+.ecosystem-branches:before{
+  background:var(--line);
+  content:"";
+  height:48px;
+  left:50%;
+  position:absolute;
+  top:-48px;
+  width:2px;
+}
+
+.division-card{
+  background:white;
+  border:1px solid var(--line);
+  border-left:3px solid var(--orange);
+  border-radius:var(--radius);
+  color:var(--navy);
+  font-weight:800;
+  min-height:108px;
+  padding:22px 18px;
+  text-align:left;
+  transition:0.25s ease;
+}
+
+.division-card:hover{
+  transform:translateY(-4px);
+  box-shadow:0 10px 25px rgba(13,33,69,.12);
+}
+
     .avatar {
   align-items: center;
   background: var(--navy);
@@ -1133,6 +1187,17 @@ body.admin-mode .avatar-reset {
       .menu-toggle {
         display: inline-flex;
       }
+
+      .ecosystem-branches{
+  grid-template-columns:1fr;
+  border-top:0;
+  margin-top:28px;
+  padding-top:0;
+}
+
+.ecosystem-branches:before{
+  display:none;
+}
 
       .nav-links {
         background: var(--white);
@@ -1845,7 +1910,7 @@ body.admin-mode .avatar-reset {
         <li><a class="nav-link" href="javascript:void(0)" onclick="redirectTo('https://projects.pentaminds.in', 'Entering Projects Division…')">Projects ↗</a></li>
         <li><a class="nav-link" href="javascript:void(0)" onclick="redirectTo('https://toolkit.pentaminds.in', 'Entering Toolkit Division…')">Toolkit ↗</a></li>
         <li><a class="nav-link" href="javascript:void(0)" onclick="redirectTo('https://vignesh.pentaminds.in', 'Entering Founder Division…')">Founder ↗</a></li>
-        <li><a href="#ecosystem">Ecosystem</a></li>
+        <li><a class="nav-link" href="#ecosystem">Ecosystem</a></li>
         <li><a class="nav-link" href="#contact">Contact</a></li>
         <li class="nav-divider" aria-hidden="true"></li>
       </ul>
@@ -2055,11 +2120,11 @@ body.admin-mode .avatar-reset {
           <div class="project-meta-item"><span class="project-meta-label">Output</span><span class="project-meta-value">Policy Brief · Toolkit</span></div>
         </div>
         <p class="project-overview">The AI Grand Challenge is an international student research competition organised under the Global Partnership on AI (GPAI) and Inria, France. Team Penta Minds is participating through the GPAI India Student Community, conducting original field research on how AI is understood, used, and encountered by students and faculty across Tier 1, Tier 2, and Tier 3 higher education institutions in India. Research outputs will be submitted to the OECD through GPAI policy frameworks.</p>
-        <div class="project-sections">
+        <!--<div class="project-sections">
           <div class="project-section-block"><h4>Research Direction</h4><p>Investigating the informal learning of AI in Indian higher education — what students know, how they learned it, and what the gaps in formal literacy look like when compared across institution types and geographic regions.</p></div>
           <div class="project-section-block"><h4>Contribution</h4><p>Producing a structured survey dataset, field visit observations, a Policy Brief on AI in Indian Higher Education, and the Ground-Up AI Literacy Toolkit — all submitted through GPAI to OECD policy channels.</p></div>
           <div class="project-section-block"><h4>Ecosystem Significance</h4><p>This project is the founding research initiative of Penta Minds. It establishes the team's methodology, field credibility, and output standards for all future research operations.</p></div>
-        </div>
+        </div>-->
         <div class="project-affiliations">
           <p class="project-affiliations-label">Affiliations</p>
           <div class="affiliation-chips">
@@ -2067,16 +2132,6 @@ body.admin-mode .avatar-reset {
             <a class="affiliation-chip" href="https://www.linkedin.com/company/col-cemca" target="_blank" rel="noopener"><span class="affiliation-chip-dot"></span>COL-CEMCA</a>
             <a class="affiliation-chip" href="https://www.linkedin.com/company/inria" target="_blank" rel="noopener"><span class="affiliation-chip-dot"></span>Inria, France — Organising Body</a>
             <a class="affiliation-chip" href="https://www.linkedin.com/company/organisation-eco-cooperation-development-organisation-cooperation-developpement-eco" target="_blank" rel="noopener"><span class="affiliation-chip-dot"></span>OECD — Output Audience</a>
-          </div>
-        </div>
-        <div class="project-timeline-strip">
-          <p class="project-timeline-label">Project Timeline</p>
-          <div class="timeline-strip-items">
-            <div class="timeline-strip-item"><span class="timeline-strip-date">March 2026</span><span class="timeline-strip-event">Registration & Team Formation</span></div>
-            <div class="timeline-strip-item"><span class="timeline-strip-date">April 2026</span><span class="timeline-strip-event">Survey Launch & Institution Outreach</span></div>
-            <div class="timeline-strip-item"><span class="timeline-strip-date">April–May 2026</span><span class="timeline-strip-event">Field Data Collection — 9+ Institutions</span></div>
-            <div class="timeline-strip-item"><span class="timeline-strip-date">May 2026</span><span class="timeline-strip-event">Data Compilation & Organisation</span></div>
-            <div class="timeline-strip-item"><span class="timeline-strip-date">June 2026</span><span class="timeline-strip-event">Analysis, Policy Brief & Toolkit Publication</span></div>
           </div>
         </div>
       </div>
@@ -2095,12 +2150,6 @@ body.admin-mode .avatar-reset {
           <div class="project-meta-item"><span class="project-meta-label">Output Type</span><span class="project-meta-value">Research Report · Survey Dataset · AI Literacy Toolkit V2</span></div>
         </div>
         <p class="project-overview">AI as the Hidden Curriculum is the core research inquiry examining how students in Indian higher education are learning to use AI tools informally — outside any structured curriculum or institutional guidance. The central question: what does it mean when an entire generation of students is developing AI competency through trial, error, and peer observation, without the institution acknowledging it? This project generates the primary evidence base for the AI Grand Challenge submission.</p>
-        <div class="project-sections">
-          <div class="project-section-block"><h4>Objective</h4><p>To document the informal AI learning behaviours of students across Tier 1, 2, and 3 institutions and identify the structural gap between how students use AI and what institutions know, acknowledge, or address.</p></div>
-          <div class="project-section-block"><h4>Methodology</h4><p>Field surveys across 9+ institutions in Tamil Nadu, structured faculty interviews, institutional observation visits across Thanjavur, Trichy, Kumbakonam, and Delhi NCR, supplemented by a national online survey instrument.</p></div>
-          <div class="project-section-block"><h4>Current Stage</h4><p>Active Preparation and Foundation Phase.</p></div>
-          <div class="project-section-block"><h4>Upcoming Plans</h4><p>Collection of data through field visits. Thematic analysis of survey and field data. Draft policy brief by December 2026. AI Literacy Toolkit finalisation and CC-licensed publication.</p></div>
-        </div>
       </div>
     </article>
     <div style="margin-top: 40px; text-align: center;" class="reveal">
@@ -2176,6 +2225,7 @@ body.admin-mode .avatar-reset {
             <button class="division-card" onclick="redirectTo('https://projects.pentaminds.in', 'Opening Project Division...')">Projects Division</button>
           </div>
         </div>
+      </div>
     </section>
     
     <section class="section contact-section" id="contact">
