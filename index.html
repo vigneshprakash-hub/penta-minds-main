@@ -1854,6 +1854,25 @@ body.admin-mode .avatar-reset {
   font-weight: 700;
 }
 
+    .avatar-initials {
+      align-items: center;
+      color: var(--white);
+      display: inline-flex;
+      font-size: 1.35rem;
+      font-weight: 800;
+      height: 100%;
+      justify-content: center;
+      pointer-events: none;
+      user-select: none;
+      width: 100%;
+    }
+
+    .avatar:has(.avatar-initials)::before,
+    .avatar:has(img)::before {
+      content: "";
+      display: none;
+    }
+    
   </style>
 </head>
 <body class="is-loading">
@@ -1961,80 +1980,13 @@ body.admin-mode .avatar-reset {
         <h2 class="section-title reveal">Meet the Team</h2>
         <span class="orange-rule reveal" style="margin-left:auto;margin-right:auto;" aria-hidden="true"></span>
         <p class="subtitle reveal">Five minds. Two states. One mission.</p>
-        <div class="team-grid">
-          <article class="team-card reveal" data-member-id="vignesh-prakash">
-            <span class="avatar" data-initials="VP">
-             <button class="avatar-upload" type="button" aria-label="Upload photo for Vignesh Prakash"></button>
-              <input class="avatar-input" type="file" accept="image/*">
-            </span>
-            <h3>Vignesh Prakash</h3>
-            <span class="badge">Research Lead</span>
-            <a class="linkedin" href="https://www.linkedin.com/in/vigneshprak" aria-label="Vignesh Prakash LinkedIn">in</a>
-            <button class="avatar-reset" type="button" disabled>Reset photo</button>
-          </article>
-          <article class="team-card reveal" data-member-id="muskan-joshi">
-            <span class="avatar" data-initials="MJ">
-             <button class="avatar-upload" type="button" aria-label="Upload photo for Muskan Joshi"></button>
-              <input class="avatar-input" type="file" accept="image/*">
-            </span>
-            <h3>Muskan Joshi</h3>
-            <span class="badge">Research Contributor</span>
-            <a class="linkedin" href="https://www.linkedin.com/in/muskan-joshi-956695142/" aria-label="Muskan Joshi LinkedIn">in</a>
-            <button class="avatar-reset" type="button" disabled>Reset photo</button>
-          </article>
-          <article class="team-card reveal" data-member-id="priya-saxena">
-            <span class="avatar" data-initials="PS">
-             <button class="avatar-upload" type="button" aria-label="Upload photo for Priya Saxena"></button>
-              <input class="avatar-input" type="file" accept="image/*">
-            </span>
-            <h3>Priya Saxena</h3>
-            <span class="badge">Research Contributor</span>
-            <a class="linkedin" href="https://www.linkedin.com/in/priyasaxena007/" aria-label="Priya Saxena LinkedIn">in</a>
-            <button class="avatar-reset" type="button" disabled>Reset photo</button>
-          </article>
-          <article class="team-card reveal" data-member-id="aditi-pathak">
-            <span class="avatar" data-initials="A">
-             <button class="avatar-upload" type="button" aria-label="Upload photo for Aditi Pathak"></button>
-              <input class="avatar-input" type="file" accept="image/*">
-            </span>
-            <h3>Aditi Pathak</h3>
-            <span class="badge">Research Contributor</span>
-            <a class="linkedin" href="https://www.linkedin.com/in/aditi-pathak-b438242b9/" aria-label="Aditi Pathak LinkedIn">in</a>
-            <button class="avatar-reset" type="button" disabled>Reset photo</button>
-          </article>
-          <article class="team-card reveal" data-member-id="shivani-singh">
-            <span class="avatar" data-initials="S">
-             <button class="avatar-upload" type="button" aria-label="Upload photo for Shivani Singh"></button>
-              <input class="avatar-input" type="file" accept="image/*">
-            </span>
-            <h3>Shivani Singh</h3>
-            <span class="badge">Project Contributor</span>
-            <a class="linkedin" href="https://www.linkedin.com/in/shivani-singh-teacher-educator/" aria-label="Shivani Singh LinkedIn">in</a>
-            <button class="avatar-reset" type="button" disabled>Reset photo</button>
-          </article>
+<div class="team-grid" id="team-grid-container" aria-label="Core team members">
+          <!-- Dynamically populated from GET /api/team-members -->
         </div>
-        <div class="associate-row">
-        <article class="associate-card reveal">
-          <span class="avatar" data-initials="P">
-             <button class="avatar-upload" type="button" aria-label="Upload photo for Praveen K K"></button>
-              <input class="avatar-input" type="file" accept="image/*">
-          </span>
-          <h3>Praveen K K</h3>
-          <span class="badge">Field Associate</span><br>
-          <a class="linkedin" href="https://www.linkedin.com/in/praveen-k-k-a60759341/" aria-label="Praveen K K LinkedIn">in</a>
-            <button class="avatar-reset" type="button" disabled>Reset photo</button>
-        </article>
-        <article class="associate-card reveal">
-          <span class="avatar" data-initials="VP">
-             <button class="avatar-upload" type="button" aria-label="Upload photo for Vishnupriyan P"></button>
-              <input class="avatar-input" type="file" accept="image/*">
-          </span>
-          <h3>Vishnupriyan P</h3>
-          <span class="badge">Outreach Associate</span><br>
-          <a class="linkedin" href="https://www.linkedin.com/in/vishnupriyan-p-2b5264315/" aria-label="Vishnupriyan P LinkedIn">in</a>
-            <button class="avatar-reset" type="button" disabled>Reset photo</button>
-        </article>
+        <div class="associate-row" id="associates-container" aria-label="Associate members">
+          <!-- Dynamically populated from GET /api/team-members -->
         </div>
+        
         <div class="section-portal-cta reveal">
           <div class="section-portal-cta-inner">
             <p>The full team directory, departments, member profiles, and recruitment information live in the Team Division.</p>
@@ -2378,8 +2330,6 @@ if (MAINTENANCE_MODE) {
 
     sections.forEach((section) => activeObserver.observe(section));
 
-    const avatarStorageKey = (memberId) => `penta-minds-avatar-${memberId}`;
-
     const setAvatarPhoto = (card, imageData) => {
       const avatar = card.querySelector(".avatar");
       const resetButton = card.querySelector(".avatar-reset");
@@ -2579,89 +2529,344 @@ if (MAINTENANCE_MODE) {
       }, 1500);
     });
 
-    const ADMIN_PASSWORD = "hello@pentaminds";
+    /* ================================================================
+     * PENTA MINDS - Production Image Management System
+     * Replaces localStorage avatar storage and client-side password checks.
+     * ================================================================ */
 
-    window.addEventListener("DOMContentLoaded", () => {
-      const adminAccessButton = document.getElementById("admin-access-btn");
-      const adminModal = document.getElementById("admin-modal");
-      const adminLoginButton = document.getElementById("admin-login-btn");
-      const adminCancelButton = document.getElementById("admin-cancel-btn");
-      const adminPasswordInput = document.getElementById("admin-password-input");
-      const adminError = document.getElementById("admin-error");
+    const API_BASE = window.location.hostname === "localhost"
+      ? "http://localhost:3000/api"
+      : "/api";
 
-      if (!adminAccessButton || !adminModal || !adminLoginButton || !adminCancelButton || !adminPasswordInput || !adminError) return;
+    let ADMIN_TOKEN = null;
 
-      const openAdminModal = () => {
-        adminError.classList.remove("visible");
-        adminPasswordInput.value = "";
-        adminModal.classList.add("open");
-        adminModal.setAttribute("aria-hidden", "false");
-        window.setTimeout(() => adminPasswordInput.focus(), 0);
-      };
+    const escapeHtml = (value) => String(value ?? "")
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#39;");
 
-      const closeAdminModal = () => {
-        adminModal.classList.remove("open");
-        adminModal.setAttribute("aria-hidden", "true");
-        adminPasswordInput.value = "";
-        adminError.classList.remove("visible");
-      };
+    const buildTeamCard = (member) => {
+      const el = document.createElement("article");
+      const name = escapeHtml(member.member_name);
+      const role = escapeHtml(member.role);
+      const initials = escapeHtml(member.initials);
+      const slug = escapeHtml(member.member_slug);
+      const imageUrl = member.image_url ? escapeHtml(member.image_url) : "";
+      const linkedinUrl = member.linkedin_url ? escapeHtml(member.linkedin_url) : "";
 
-      const unlockAdminMode = () => {
-        if (adminPasswordInput.value === ADMIN_PASSWORD) {
-          document.body.classList.add("admin-mode");
-          closeAdminModal();
+      const avatarInner = `
+        <span class="avatar" data-member-id="${slug}" data-initials="${initials}">
+          ${imageUrl
+            ? `<img src="${imageUrl}" alt="${name} photo" loading="lazy" width="100" height="100">`
+            : `<span class="avatar-initials" aria-hidden="true">${initials}</span>`
+          }
+          <button class="avatar-upload" type="button" aria-label="Upload photo for ${name}" title="Upload photo"></button>
+          <input class="avatar-input" type="file" accept="image/jpeg,image/png,image/webp" aria-hidden="true">
+        </span>
+        <button class="avatar-reset" type="button" ${!imageUrl ? "disabled" : ""}>Reset photo</button>
+      `;
+
+      const linkedinBtn = linkedinUrl
+        ? `<a class="linkedin" href="${linkedinUrl}" target="_blank" rel="noopener noreferrer" aria-label="${name} LinkedIn profile">in</a>`
+        : "";
+
+      if (member.is_associate) {
+        el.className = "associate-card reveal";
+        el.innerHTML = `
+          ${avatarInner}
+          <h3>${name}</h3>
+          <span class="badge">${role}</span><br>
+          ${linkedinBtn}
+        `;
+      } else {
+        el.className = "team-card reveal";
+        el.dataset.memberId = member.member_slug;
+        el.innerHTML = `
+          ${avatarInner}
+          <h3>${name}</h3>
+          <span class="badge">${role}</span>
+          ${linkedinBtn}
+        `;
+      }
+
+      return el;
+    };
+
+    const showUploadStatus = (card, state, message) => {
+      let el = card.querySelector(".upload-status");
+      if (!el) {
+        el = document.createElement("p");
+        el.className = "upload-status";
+        el.style.cssText = "font-size:.78rem;font-weight:700;margin:8px 0 0;text-align:center;transition:opacity 300ms ease;";
+        card.appendChild(el);
+      }
+      const colours = { uploading: "#707887", success: "#2d8a4e", error: "#cc2a2a" };
+      el.textContent = message;
+      el.style.color = colours[state] || "#707887";
+      el.style.opacity = "1";
+      if (state !== "uploading") {
+        setTimeout(() => {
+          el.style.opacity = "0";
+          setTimeout(() => { if (el.parentNode) el.remove(); }, 300);
+        }, 3000);
+      }
+    };
+
+    const setCardImage = (card, memberSlug, imageUrl) => {
+      const avatarSpan = card.querySelector("[data-member-id], .avatar");
+      if (!avatarSpan) return;
+      const initialsEl = avatarSpan.querySelector(".avatar-initials");
+      if (initialsEl) initialsEl.remove();
+      let img = avatarSpan.querySelector("img");
+      if (!img) {
+        img = document.createElement("img");
+        img.loading = "lazy";
+        img.width = 100;
+        img.height = 100;
+        avatarSpan.prepend(img);
+      }
+      img.alt = `${card.querySelector("h3")?.textContent || memberSlug} photo`;
+      img.src = `${imageUrl}?v=${Date.now()}`;
+    };
+
+    const restoreInitials = (card) => {
+      const avatarSpan = card.querySelector("[data-member-id], .avatar");
+      if (!avatarSpan) return;
+      avatarSpan.querySelector("img")?.remove();
+      if (!avatarSpan.querySelector(".avatar-initials")) {
+        const span = document.createElement("span");
+        span.className = "avatar-initials";
+        span.setAttribute("aria-hidden", "true");
+        span.textContent = avatarSpan.dataset.initials || "?";
+        avatarSpan.prepend(span);
+      }
+    };
+
+    const wireCardHandlers = (card, memberSlug) => {
+      if (card.dataset.wired === "true") return;
+      card.dataset.wired = "true";
+
+      const uploadBtn = card.querySelector(".avatar-upload");
+      const input = card.querySelector(".avatar-input");
+      const resetBtn = card.querySelector(".avatar-reset");
+      if (!uploadBtn || !input || !resetBtn) return;
+
+      uploadBtn.addEventListener("click", () => input.click());
+
+      input.addEventListener("change", async () => {
+        const [file] = input.files;
+        if (!file) return;
+        if (!["image/jpeg", "image/png", "image/webp"].includes(file.type)) {
+          showUploadStatus(card, "error", "Only JPEG, PNG, or WebP files are accepted.");
+          input.value = "";
+          return;
+        }
+        if (!ADMIN_TOKEN) {
+          showUploadStatus(card, "error", "Session expired. Please log in again.");
+          input.value = "";
           return;
         }
 
-        adminError.classList.add("visible");
-        adminPasswordInput.value = "";
-        adminPasswordInput.focus();
-      };
+        showUploadStatus(card, "uploading", "Uploading...");
+        uploadBtn.disabled = true;
 
-      adminAccessButton.addEventListener("click", openAdminModal);
-      adminLoginButton.addEventListener("click", unlockAdminMode);
-      adminCancelButton.addEventListener("click", closeAdminModal);
+        try {
+          const body = new FormData();
+          body.append("image", file);
+          body.append("member_slug", memberSlug);
 
-      adminPasswordInput.addEventListener("keydown", (event) => {
-        if (event.key === "Enter") unlockAdminMode();
-        if (event.key === "Escape") closeAdminModal();
+          const response = await fetch(`${API_BASE}/upload-member-image`, {
+            method: "POST",
+            headers: { Authorization: `Bearer ${ADMIN_TOKEN}` },
+            body
+          });
+          const result = await response.json();
+          if (!response.ok || !result.success) {
+            throw new Error(result.error || `Upload failed (${response.status})`);
+          }
+
+          setCardImage(card, memberSlug, result.image_url);
+          resetBtn.disabled = false;
+          showUploadStatus(card, "success", "Photo updated - visible on all devices.");
+        } catch (err) {
+          console.error("[Upload]", err);
+          showUploadStatus(card, "error", err.message || "Upload failed.");
+        } finally {
+          uploadBtn.disabled = false;
+          input.value = "";
+        }
       });
 
-      adminModal.addEventListener("click", (event) => {
-        if (event.target === adminModal) closeAdminModal();
-      });
-    });
-document.querySelectorAll('.avatar').forEach((avatar) => {
-  const uploadBtn = avatar.querySelector('.avatar-upload');
-  const fileInput = avatar.querySelector('.avatar-input');
-
-  if (uploadBtn && fileInput) {
-    uploadBtn.addEventListener('click', () => {
-      fileInput.click();
-    });
-
-    fileInput.addEventListener('change', (event) => {
-      const file = event.target.files[0];
-
-      if (!file) return;
-
-      const reader = new FileReader();
-
-      reader.onload = function(e) {
-        let img = avatar.querySelector('img');
-
-        if (!img) {
-          img = document.createElement('img');
-          avatar.appendChild(img);
+      resetBtn.addEventListener("click", async () => {
+        if (!ADMIN_TOKEN) {
+          showUploadStatus(card, "error", "Session expired. Please log in again.");
+          return;
         }
 
-        img.src = e.target.result;
+        showUploadStatus(card, "uploading", "Removing photo...");
+        resetBtn.disabled = true;
+
+        try {
+          const response = await fetch(`${API_BASE}/team-members/${memberSlug}/image`, {
+            method: "DELETE",
+            headers: {
+              Authorization: `Bearer ${ADMIN_TOKEN}`,
+              "Content-Type": "application/json"
+            }
+          });
+          const result = await response.json();
+          if (!response.ok || !result.success) {
+            throw new Error(result.error || `Reset failed (${response.status})`);
+          }
+
+          restoreInitials(card);
+          showUploadStatus(card, "success", "Photo removed.");
+        } catch (err) {
+          console.error("[Reset]", err);
+          resetBtn.disabled = false;
+          showUploadStatus(card, "error", err.message || "Reset failed.");
+        }
+      });
+    };
+
+    const enableAdminControls = () => {
+      document.querySelectorAll(".avatar-upload, .avatar-reset").forEach((btn) => {
+        btn.style.removeProperty("display");
+      });
+      document.querySelectorAll(".team-card[data-member-id]").forEach((card) => {
+        wireCardHandlers(card, card.dataset.memberId);
+      });
+      document.querySelectorAll(".associate-card").forEach((card) => {
+        const slug = card.querySelector("[data-member-id]")?.dataset.memberId || card.dataset.memberId;
+        if (slug) wireCardHandlers(card, slug);
+      });
+    };
+
+    const loadTeamMembers = async () => {
+      const grid = document.getElementById("team-grid-container");
+      const associates = document.getElementById("associates-container");
+      if (!grid) return;
+
+      try {
+        const res = await fetch(`${API_BASE}/team-members`);
+        const payload = await res.json();
+        if (!res.ok || !payload.success) throw new Error(payload.error || `API ${res.status}`);
+
+        const members = Array.isArray(payload.data) ? payload.data : [];
+        grid.innerHTML = "";
+        members.filter((m) => !m.is_associate).forEach((m) => grid.appendChild(buildTeamCard(m)));
+
+        if (associates) {
+          associates.innerHTML = "";
+          members.filter((m) => m.is_associate).forEach((m) => associates.appendChild(buildTeamCard(m)));
+          associates.classList.add("associate-row");
+        }
+
+        if (typeof revealObserver !== "undefined") {
+          document.querySelectorAll(".reveal:not(.visible)").forEach((el) => revealObserver.observe(el));
+        }
+        if (document.body.classList.contains("admin-mode")) enableAdminControls();
+      } catch (err) {
+        console.error("[loadTeamMembers]", err);
+        grid.innerHTML = '<p style="color:var(--muted);font-size:.9rem;grid-column:1/-1;text-align:center;padding:32px 0;">Team data temporarily unavailable. Please refresh the page.</p>';
+      }
+    };
+
+    const attemptAdminLogin = async (password, onSuccess, onError) => {
+      try {
+        const res = await fetch(`${API_BASE}/admin/login`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ password })
+        });
+        const result = await res.json();
+        if (!res.ok || !result.success) return onError(result.error || "Invalid password.");
+        ADMIN_TOKEN = result.token;
+        document.body.classList.add("admin-mode");
+        enableAdminControls();
+        onSuccess();
+      } catch (err) {
+        console.error("[AdminLogin]", err);
+        onError("Network error. Check your connection.");
+      }
+    };
+
+    window.addEventListener("DOMContentLoaded", () => {
+      const adminBtn = document.getElementById("admin-access-btn");
+      const modal = document.getElementById("admin-modal");
+      const loginBtn = document.getElementById("admin-login-btn");
+      const cancelBtn = document.getElementById("admin-cancel-btn");
+      const pwInput = document.getElementById("admin-password-input");
+      const errorEl = document.getElementById("admin-error");
+
+      if (!adminBtn || !modal) {
+        loadTeamMembers();
+        return;
+      }
+
+      const open = () => {
+        errorEl?.classList.remove("visible");
+        if (pwInput) pwInput.value = "";
+        modal.classList.add("open");
+        modal.setAttribute("aria-hidden", "false");
+        setTimeout(() => pwInput?.focus(), 0);
       };
 
-      reader.readAsDataURL(file);
+      const close = () => {
+        modal.classList.remove("open");
+        modal.setAttribute("aria-hidden", "true");
+        if (pwInput) pwInput.value = "";
+        errorEl?.classList.remove("visible");
+      };
+
+      const doLogin = () => {
+        const password = pwInput?.value || "";
+        if (!password) return;
+        if (loginBtn) {
+          loginBtn.textContent = "Verifying...";
+          loginBtn.disabled = true;
+        }
+        attemptAdminLogin(
+          password,
+          () => {
+            if (loginBtn) {
+              loginBtn.textContent = "Unlock";
+              loginBtn.disabled = false;
+            }
+            close();
+          },
+          (errMsg) => {
+            if (loginBtn) {
+              loginBtn.textContent = "Unlock";
+              loginBtn.disabled = false;
+            }
+            if (errorEl) {
+              errorEl.textContent = errMsg;
+              errorEl.classList.add("visible");
+            }
+            if (pwInput) {
+              pwInput.value = "";
+              pwInput.focus();
+            }
+          }
+        );
+      };
+
+      adminBtn.addEventListener("click", open);
+      cancelBtn?.addEventListener("click", close);
+      loginBtn?.addEventListener("click", doLogin);
+      pwInput?.addEventListener("keydown", (event) => {
+        if (event.key === "Enter") doLogin();
+        if (event.key === "Escape") close();
+      });
+      modal.addEventListener("click", (event) => {
+        if (event.target === modal) close();
+      });
+
+      loadTeamMembers();
     });
-  }
-});
     
   </script>
 
