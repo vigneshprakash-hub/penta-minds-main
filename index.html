@@ -2571,11 +2571,17 @@ if (MAINTENANCE_MODE) {
           body.append("image", file);
           body.append("member_slug", memberSlug);
 
-          const response = await fetch(`${API_BASE}/upload-member-image`, {
-            method: "POST",
-            headers: { Authorization: `Bearer ${ADMIN_TOKEN}` },
-            body
-          });
+          const response = await fetch(
+  `${API_BASE}/members/${memberSlug}/image`,
+  {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${ADMIN_TOKEN}`
+    },
+    body
+  }
+);
+          
           const result = await response.json();
           if (!response.ok || !result.success) {
             throw new Error(result.error || `Upload failed (${response.status})`);
