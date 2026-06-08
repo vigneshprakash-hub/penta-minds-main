@@ -2676,8 +2676,6 @@ if (MAINTENANCE_MODE) {
         });
         const result = await res.json();
 
-const result = await res.json();
-
 if (!res.ok || !result.success)
   return onError(result.error || "Invalid password.");
 
