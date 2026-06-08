@@ -2572,7 +2572,7 @@ if (MAINTENANCE_MODE) {
           body.append("member_slug", memberSlug);
 
           const response = await fetch(
-  `${API_BASE}/members/${memberSlug}/image`,
+  `${API_BASE}/upload/team-member-image`,
   {
     method: "POST",
     headers: {
