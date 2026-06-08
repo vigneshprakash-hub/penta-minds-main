@@ -2676,13 +2676,16 @@ if (MAINTENANCE_MODE) {
         });
         const result = await res.json();
 
-console.log("LOGIN RESULT:", result);
+const result = await res.json();
 
 if (!res.ok || !result.success)
   return onError(result.error || "Invalid password.");
 
-ADMIN_TOKEN = result.token;
+ADMIN_TOKEN = result?.data?.token;
 
+if (!ADMIN_TOKEN) {
+  return onError("Authentication token missing.");
+}
 console.log("ADMIN_TOKEN:", ADMIN_TOKEN);
         if (!res.ok || !result.success) return onError(result.error || "Invalid password.");
         ADMIN_TOKEN = result.token;
