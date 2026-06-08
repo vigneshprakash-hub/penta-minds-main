@@ -2684,7 +2684,20 @@ if (MAINTENANCE_MODE) {
         console.error("[AdminLogin]", err);
         onError("Network error. Check your connection.");
       }
+
+      const result = await res.json();
+
+console.log("LOGIN RESULT:", result);
+
+if (!res.ok || !result.success)
+  return onError(result.error || "Invalid password.");
+
+ADMIN_TOKEN = result.token;
+
+console.log("ADMIN_TOKEN:", ADMIN_TOKEN);
     };
+
+    
 
     window.addEventListener("DOMContentLoaded", () => {
       const adminBtn = document.getElementById("admin-access-btn");
