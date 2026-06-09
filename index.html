@@ -1309,98 +1309,6 @@ body.admin-mode .avatar-reset {
     @media (max-width: 768px) {
       .hero-logo { max-width: 120px; }
     }
-.maintenance {
-  position: fixed;
-  inset: 0;
-  background: #0D2145;
-  color: #ddd;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 10000;
-  text-align: center;
-  padding: 20px;
-}
-.maintenance.hidden {
-  display: none;
-}
-.maintenance-inner {
-  max-width: 760px;
-}
-.gear-spin {
-  display: inline-block;
-  margin-bottom: 24px;
-  animation: gear-rotate 4s linear infinite;
-  transform-origin: center;
-}
-.gear-spin-small {
-  display: inline-block;
-  animation: gear-rotate-rev 3s linear infinite;
-  transform-origin: center;
-  vertical-align: middle;
-  margin-left: -8px;
-  margin-bottom: 24px;
-}
-@keyframes gear-rotate { to { transform: rotate(360deg); } }
-@keyframes gear-rotate-rev { to { transform: rotate(-360deg); } }
-.maintenance h2 {
-  font-family: var(--heading);
-  font-size: clamp(2rem, 4vw, 3rem);
-  color: #fff;
-  margin-bottom: 0;
-}
-.maintenance h2 span {
-  color: var(--orange);
-  border-bottom: 3px solid var(--orange);
-}
-.maintenance-divider {
-  width: 60px;
-  height: 3px;
-  background: var(--orange);
-  border-radius: 99px;
-  margin: 18px auto;
-}
-.maintenance > .maintenance-inner > p {
-  color: #aaa;
-  line-height: 1.75;
-  margin-bottom: 24px;
-  font-size: 1.05rem;
-}
-.maintenance-tags {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 10px;
-  margin-bottom: 28px;
-}
-.maintenance-tags span {
-  border: 1px solid #2e3a52;
-  padding: 6px 14px;
-  border-radius: 999px;
-  background: #132035;
-  font-size: 0.82rem;
-  color: #aaa;
-}
-.maintenance-footer {
-  color: #666;
-  font-size: 0.88rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-}
-.maintenance-footer .live-dot {
-  width: 8px;
-  height: 8px;
-  background: #22c55e;
-  border-radius: 50%;
-  display: inline-block;
-  animation: dot-pulse 2s ease-in-out infinite;
-}
-@keyframes dot-pulse {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.35; }
-}
 
     .admin-access-btn {
       align-items: center;
@@ -1876,43 +1784,7 @@ body.admin-mode .avatar-reset {
   </style>
 </head>
 <body class="is-loading">
-<div id="maintenance-mode" class="maintenance hidden">
-  <div class="maintenance-inner">
-    <div>
-      <svg class="gear-spin" width="56" height="56" viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M33 10h6l1 5.5a16 16 0 0 1 4.2 1.7l4.7-2.9 4.2 4.2-2.9 4.7a16 16 0 0 1 1.7 4.2L57 28.5v6l-5.1 1a16 16 0 0 1-1.7 4.1l2.9 4.8-4.2 4.2-4.8-2.9a16 16 0 0 1-4.1 1.7L39 52.5h-6l-1-5.1a16 16 0 0 1-4.1-1.7l-4.8 2.9-4.2-4.2 2.9-4.8a16 16 0 0 1-1.7-4.1L15 34.5v-6l5.1-1a16 16 0 0 1 1.7-4.2l-2.9-4.7 4.2-4.2 4.7 2.9a16 16 0 0 1 4.2-1.7L33 10z" fill="#E87722" opacity="0.9"/>
-        <circle cx="36" cy="36" r="8" fill="#0D2145"/>
-        <circle cx="36" cy="36" r="5" fill="#E87722"/>
-      </svg>
-      <svg class="gear-spin-small" width="32" height="32" viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M33 10h6l1 5.5a16 16 0 0 1 4.2 1.7l4.7-2.9 4.2 4.2-2.9 4.7a16 16 0 0 1 1.7 4.2L57 28.5v6l-5.1 1a16 16 0 0 1-1.7 4.1l2.9 4.8-4.2 4.2-4.8-2.9a16 16 0 0 1-4.1 1.7L39 52.5h-6l-1-5.1a16 16 0 0 1-4.1-1.7l-4.8 2.9-4.2-4.2 2.9-4.8a16 16 0 0 1-1.7-4.1L15 34.5v-6l5.1-1a16 16 0 0 1 1.7-4.2l-2.9-4.7 4.2-4.2 4.7 2.9a16 16 0 0 1 4.2-1.7L33 10z" fill="#ffffff" opacity="0.15"/>
-        <circle cx="36" cy="36" r="5" fill="#ffffff" opacity="0.2"/>
-      </svg>
-    </div>
-    <h2>This site is actively being <span>updated</span></h2>
-    <div class="maintenance-divider"></div>
-    <p>The Penta Minds research team is a living, growing collective. This website is updated consistently as we take on new research topics, challenges, and collaborations. Some sections may be incomplete or subject to change as our work evolves. <br>Thank you for your patience and interest in our research.</p>
-    <div class="maintenance-tags">
-      <span>Maintenance in progress</span>
-      <span>AI Research in progress</span>
-      <!--<span>Toolkit being built</span>-->
-      <!--<span>Data collection active</span>-->
-      <span>Content updates ongoing</span>
-    </div>
-    <div class="maintenance-footer">
-      <span class="live-dot"></span>
-      Penta Minds · Student Research Team · Updates are live and continuous
-    </div>
-  </div>
-</div>
-<div id="main-site">
-  <div class="page-loader" aria-label="Loading Penta Minds website" role="status">
-    <div class="loader-logo" aria-hidden="true">
-      <span class="brand-penta">Penta</span> <span class="brand-minds">Minds</span></div>
-    <div class="loader-progress" aria-hidden="true"><span></span></div>
-  </div>
-
-  <header class="site-header">
+ <header class="site-header">
     <nav class="container nav-wrap" aria-label="Primary navigation">
       <a class="brand" href="#home" aria-label="Penta Minds home">
         <span class="brand-main"><span class="brand-penta">Penta</span> <span class="brand-minds">Minds</span></span>
@@ -2256,16 +2128,7 @@ function redirectTo(url, label) {
   if (overlay) overlay.classList.add('active');
   setTimeout(function() { window.location.href = url; }, 650);
 }
-const MAINTENANCE_MODE = false;
-const maintenanceEl = document.getElementById("maintenance-mode");
-const mainSiteEl = document.getElementById("main-site");
-if (MAINTENANCE_MODE) {
-  maintenanceEl.classList.remove("hidden");
-  mainSiteEl.style.display = "none";
-} else {
-  maintenanceEl.classList.add("hidden");
-  mainSiteEl.style.display = "block";
-}
+
     const pageLoader = document.querySelector(".page-loader");
     const menuToggle = document.querySelector(".menu-toggle");
     const siteHeader = document.querySelector(".site-header");
