@@ -2559,11 +2559,22 @@ showUploadStatus(
         const members = Array.isArray(payload.data) ? payload.data : [];
         grid.innerHTML = "";
 members
-  .filter((m) =>
-      !m.is_associate &&
-      m.member_slug !== "vignesh-prakash" &&
-      m.member_slug !== "vishnupriyan-p"
-  )
+  .filter((m) => {
+      if (m.is_associate) return false;
+
+      // Remove Vishnupriyan from main team section
+      if (m.member_slug === "vishnupriyan-p") return false;
+
+      // Keep only the foundational Vignesh record
+      if (
+          m.member_slug === "vignesh-prakash" &&
+          m.team_type === "core"
+      ) {
+          return false;
+      }
+
+      return true;
+  })
   .forEach((m) => grid.appendChild(buildTeamCard(m)));
         if (associates) {
           associates.innerHTML = "";
