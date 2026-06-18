@@ -2409,7 +2409,11 @@ window.addEventListener("load", () => {
       if (!grid) return;
 
       try {
-        const res     = await fetch(`${API_BASE}/team-members`);
+        const res = await fetch(`${API_BASE}/team-members?t=${Date.now()}`,
+  {
+    cache: "no-store"
+  }
+);        
         const payload = await res.json();
         if (!res.ok || !payload.success) throw new Error(payload.error || `API ${res.status}`);
 
