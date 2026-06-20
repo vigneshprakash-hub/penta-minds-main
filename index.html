@@ -2425,7 +2425,7 @@ window.addEventListener("load", () => {
         // are excluded here — they belong to the team subdomain only.
         grid.innerHTML = "";
         members
-          .filter((m) => !m.is_associate && m.team_type !== "core")
+          .filter((m) => m.is_associate && m.team_type == "foundational")
           .forEach((m) => grid.appendChild(buildTeamCard(m)));
 
         // Render associates
