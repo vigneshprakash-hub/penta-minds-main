@@ -1044,6 +1044,20 @@
       margin-top: 42px;
     }
 
+    .objectives-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+  justify-items: center;
+}
+
+/* Centers the third card across both columns */
+.objectives-grid > :nth-child(3) {
+  grid-column: span 2;
+  width: 100%;
+  max-width: 340px; /* Matches the width of the other cards */
+}
+
     .objective-card {
       background: var(--white);
       color: var(--text);
